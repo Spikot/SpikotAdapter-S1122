@@ -1,4 +1,4 @@
-package kr.heartpattern.spikotadapter.v1122
+package kr.heartpattern.spikotadapter.s1122
 
 import kr.heartpattern.spikot.adapter.Adapter
 import kr.heartpattern.spikot.adapter.SupportedVersion
