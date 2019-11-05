@@ -6,10 +6,6 @@ buildscript {
     }
     repositories {
         maven {
-            credentials {
-                username "$nexusUser"
-                password "$nexusPassword"
-            }
             url 'https://maven.heartpattern.kr/repository/maven-public/'
         }
     }
@@ -25,11 +21,8 @@ group 'kr.heartpattern'
 version '4.0.0-SNAPSHOT'
 
 repositories {
+    mavenLocal()
     maven {
-        credentials {
-            username "$nexusUser"
-            password "$nexusPassword"
-        }
         url 'https://maven.heartpattern.kr/repository/maven-public/'
     }
 }
@@ -43,12 +36,13 @@ compileKotlin {
 
 dependencies {
     compile 'kr.heartpattern:Spikot:4.0.0-SNAPSHOT'
-    compileOnly 'org.spigotmc:Spigot-Server:1.12.2-SNAPSHOT'
+    compileOnly 'org.spigotmc:spigot:1.12.2-R0.1-SNAPSHOT'
+
     kapt "kr.heartpattern:SpikotClassLocator:4.0.0-SNAPSHOT"
     kapt "kr.heartpattern:SpikotAnnotationProcessor:4.0.0-SNAPSHOT"
 }
 
-task fatJar(type: Jar) {
+task createPlugin(type: Jar) {
     baseName 'Spikot-S1122'
     from {
         configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
