@@ -5,6 +5,7 @@ import kr.heartpattern.spikot.adapter.SupportedVersion
 import kr.heartpattern.spikot.adapters.NBTAdapter
 import kr.heartpattern.spikot.module.AbstractModule
 import kr.heartpattern.spikot.nbt.*
+import kr.heartpattern.spikot.utils.withAccessible
 import net.minecraft.server.v1_12_R1.*
 import java.io.ByteArrayOutputStream
 
@@ -14,10 +15,10 @@ class NBTAdapterImpl : AbstractModule(), NBTAdapter {
     private val nbtTagEnd: NBTTagEnd
 
     init {
-        val constructor = NBTTagEnd::class.java.getConstructor()
-        constructor.isAccessible = true
-        nbtTagEnd = constructor.newInstance()
-        constructor.isAccessible = false
+        val constructor = NBTTagEnd::class.java.getDeclaredConstructor()
+        constructor.withAccessible {
+            nbtTagEnd = constructor.newInstance()
+        }
     }
 
     override fun compressNBT(nbt: WrapperNBTCompound): ByteArray {

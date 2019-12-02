@@ -15,6 +15,10 @@ import org.bukkit.craftbukkit.v1_12_R1.inventory.CraftItemStack
 class ItemStackAdapterImpl : AbstractModule(), ItemStackAdapter {
     private companion object {
         val handleField = CraftItemStack::class.java.getDeclaredField("handle")
+
+        init {
+            handleField.isAccessible = true
+        }
     }
 
     private val org.bukkit.inventory.ItemStack.tag: NBTTagCompound?
@@ -35,5 +39,19 @@ class ItemStackAdapterImpl : AbstractModule(), ItemStackAdapter {
     override fun toCraftItemStack(itemStack: org.bukkit.inventory.ItemStack): org.bukkit.inventory.ItemStack {
         return if (itemStack is CraftItemStack) itemStack
         else CraftItemStack.asCraftMirror(CraftItemStack.asNMSCopy(itemStack))
+    }
+
+    override fun fromNBTCompound(nbt: WrapperNBTCompound): org.bukkit.inventory.ItemStack {
+        val itemStack = ItemStack(nbt.tag as NBTTagCompound)
+        return CraftItemStack.asCraftMirror(itemStack)
+    }
+
+    override fun toNBTCompound(itemStack: org.bukkit.inventory.ItemStack): WrapperNBTCompound {
+        return if (itemStack is CraftItemStack) {
+            NBTAdapter.wrapNBTCompound((handleField.get(itemStack) as ItemStack).save(NBTTagCompound()))
+        } else {
+            val converted = CraftItemStack.asCraftCopy(itemStack)
+            toNBTCompound(converted)
+        }
     }
 }
