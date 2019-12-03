@@ -25,9 +25,12 @@ group 'kr.heartpattern'
 version '4.0.0-SNAPSHOT'
 
 repositories {
-    mavenLocal()
     maven {
-        url 'https://maven.heartpattern.kr/repository/maven-public/'
+        credentials{
+            username "$nexusUser"
+            password "$nexusPassword"
+        }
+        url 'https://maven.heartpattern.kr/repository/maven-private/'
     }
 }
 
