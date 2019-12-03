@@ -5,8 +5,15 @@ buildscript {
         paper_version = '1.12.2-R0.1-SNAPSHOT'
     }
     repositories {
-        maven {
+        maven{
             url 'https://maven.heartpattern.kr/repository/maven-public/'
+        }
+        maven {
+            credentials{
+                username "$nexusUser"
+                password "$nexusPassword"
+            }
+            url 'https://maven.heartpattern.kr/repository/maven-private/'
         }
     }
 
@@ -25,6 +32,9 @@ group 'kr.heartpattern'
 version '4.0.0-SNAPSHOT'
 
 repositories {
+    maven{
+        url 'https://maven.heartpattern.kr/repository/maven-public/'
+    }
     maven {
         credentials{
             username "$nexusUser"
