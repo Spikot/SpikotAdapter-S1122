@@ -5,15 +5,19 @@ buildscript {
         paper_version = '1.12.2-R0.1-SNAPSHOT'
     }
     repositories {
-        maven{
-            url 'https://maven.heartpattern.kr/repository/maven-public/'
-        }
-        maven {
-            credentials{
-                username "$nexusUser"
-                password "$nexusPassword"
+        if(project.hasProperty('nexusUser') && project.hasProperty('nexusPassword')){
+            maven {
+                credentials{
+                    username "$nexusUser"
+                    password "$nexusPassword"
+                }
+                url 'https://maven.heartpattern.kr/repository/maven-private/'
             }
-            url 'https://maven.heartpattern.kr/repository/maven-private/'
+        }
+        else{
+            maven{
+                url 'https://maven.heartpattern.kr/repository/maven-public/'
+            }
         }
     }
 
@@ -32,15 +36,19 @@ group 'kr.heartpattern'
 version '4.0.0-SNAPSHOT'
 
 repositories {
-    maven{
-        url 'https://maven.heartpattern.kr/repository/maven-public/'
-    }
-    maven {
-        credentials{
-            username "$nexusUser"
-            password "$nexusPassword"
+    if(project.hasProperty('nexusUser') && project.hasProperty('nexusPassword')){
+        maven {
+            credentials{
+                username "$nexusUser"
+                password "$nexusPassword"
+            }
+            url 'https://maven.heartpattern.kr/repository/maven-private/'
         }
-        url 'https://maven.heartpattern.kr/repository/maven-private/'
+    }
+    else{
+        maven{
+            url 'https://maven.heartpattern.kr/repository/maven-public/'
+        }
     }
 }
 
