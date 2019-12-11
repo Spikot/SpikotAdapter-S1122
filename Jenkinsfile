@@ -19,7 +19,7 @@ pipeline{
     }
     post{
         always{
-            archiveArtifacts artifacts: 'build/libs/Spikot-S1122-Plugin.jar'
+            archiveArtifacts artifacts: 'build/libs/SpikotAdapter-S1122-Plugin.jar'
         }
     }
 }
