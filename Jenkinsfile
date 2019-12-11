@@ -2,18 +2,18 @@ pipeline{
     agent any
 
     environment{
-        MAVEN_CRED = credentials('heartpattern-maven-repository')
+        MAVEN_CREDENTIAL = credentials('heartpattern-maven-repository')
     }
 
     stages{
         stage('test'){
             steps{
-                sh './gradlew -PnexusUser=${MAVEN_CRED_USR} -PnexusPassword=${MAVEN_CRED_PWD} clean test'
+                sh './gradlew -PnexusUser=${MAVEN_CREDENTIAL_USR} -PnexusPassword=${MAVEN_CREDENTIAL_PSW} clean test'
             }
         }
         stage('create plugin'){
             steps{
-                sh './gradlew -PnexusUser=${MAVEN_CRED_USR} -PnexusPassword=${MAVEN_CRED_PWD} createPlugin'
+                sh './gradlew -PnexusUser=${MAVEN_CREDENTIAL_USR} -PnexusPassword=${MAVEN_CREDENTIAL_PSW} createPlugin'
             }
         }
     }
