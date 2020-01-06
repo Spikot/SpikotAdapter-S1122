@@ -1,6 +1,13 @@
 pipeline{
     agent any
 
+    triggers{
+        upstream(
+            upstreamProjects: 'Spikot,SpikotClassLocator',
+            threshold: hudson.model.Result.SUCCESS
+        )
+    }
+
     environment{
         MAVEN_CREDENTIAL = credentials('heartpattern-maven-repository')
     }
