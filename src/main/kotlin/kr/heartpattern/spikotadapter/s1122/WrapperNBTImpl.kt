@@ -204,12 +204,6 @@ class WrapperNBTCompoundImpl(override val tag: NBTTagCompound) : WrapperNBTCompo
                 }
             }
         }
-    override val keys: MutableSet<String>
-        get() = super.keys
-    override val size: Int
-        get() = super.size
-    override val values: MutableCollection<WrapperNBTBase<*>>
-        get() = super.values
 
     override fun clear() {
         map.clear()
